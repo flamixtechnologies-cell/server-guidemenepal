@@ -53,7 +53,7 @@ export const addSingleDestination = async (req, res) => {
       tags,
       title,
       description,
-      image,
+      image: imageUrl,
       meta_title,
       meta_description,
       district,
