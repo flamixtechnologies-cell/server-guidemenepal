@@ -31,6 +31,9 @@ import {
   getGuideReviews,
   getLatestGuideReviews,
 } from "../../controllers/common/sub-controller/guideReviews.controller.js";
+import { upload } from "../../middlewares/multer.middleware.js";
+
+const fileUpload = upload.fields([{ name: "image", maxCount: 1 }]);
 
 //secure routes
 router.post("/create-customize-booking", createCustomizeBooking);
@@ -58,7 +61,7 @@ router.get("/get-single-district/:slug", getSingleDistrict);
 router.get("/get-popular-districts", getPopularDistricts);
 
 //destinations
-router.post("/add-single-destination", addSingleDestination);
+router.post("/add-single-destination", fileUpload, addSingleDestination);
 router.get("/get-all-destinations", getAllDestinations);
 
 //users

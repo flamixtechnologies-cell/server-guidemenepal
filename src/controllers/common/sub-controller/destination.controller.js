@@ -2,6 +2,9 @@ import { StatusCodes } from "http-status-codes";
 import { ApiError } from "../../../utils/ApiError.js";
 import { uploadOnCloudinary } from "../../../utils/cloudinary.js";
 import Destination from "../../../models/destination.model.js";
+import slug from "slug";
+import { ApiResponse } from "../../../utils/ApiResponse.js";
+import { Op } from "sequelize";
 
 const addSingleDestination = async (req, res) => {
   try {
@@ -17,7 +20,7 @@ const addSingleDestination = async (req, res) => {
 
     if (
       !name ||
-      !tags ||
+      // !tags ||
       !description ||
       !title ||
       !meta_title ||
