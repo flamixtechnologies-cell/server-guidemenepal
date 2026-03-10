@@ -63,6 +63,7 @@ const addSingleDestination = async (req, res) => {
       slug: destinationSlug,
     });
     res.status(StatusCodes.CREATED).json({
+      success: true,
       message: "Destination added successfully",
       data: destination,
     });
@@ -147,4 +148,26 @@ const getAllDestinations = async (req, res) => {
   }
 };
 
-export { addSingleDestination, getAllDestinations };
+const deleteDestination = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const destination = await Destination.findByPk(id);
+    if (!destination) {
+      throw new ApiError(StatusCodes.NOT_FOUND, "Destination not found");
+    }
+
+    await destination.destroy();
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Destination deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting destination:", error);
+    res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: error.message || "Internal Server Error",
+    });
+  }
+};
+
+export { addSingleDestination, getAllDestinations, deleteDestination };
