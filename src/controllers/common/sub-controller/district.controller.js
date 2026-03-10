@@ -66,7 +66,6 @@ const addSingleDistrict = asyncHandler(async (req, res) => {
     image: imageUrl,
     coordinates,
     title,
-    image: imageURL,
     meta_title,
     meta_description,
   });
