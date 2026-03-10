@@ -78,13 +78,16 @@ const getAllDestinations = async (req, res) => {
   try {
     const { select, page = 1, limit = 10, sort = "name", search } = req.query;
 
-    const pageNum = parseInt(page);
-    const limitNum = parseInt(limit);
-    const offset = (pageNum - 1) * limitNum;
+    const pageNum = parseInt(page) || 1;
+    const limitNum = parseInt(limit) || 10;
+
+    const validatedPage = Math.max(1, pageNum);
+    const validatedLimit = Math.max(1, limitNum);
+    const offset = (validatedPage - 1) * validatedLimit;
 
     let queryOptions = {
       offset,
-      limit: limitNum,
+      limit: validatedLimit,
     };
 
     // Handle attributes (select)
@@ -93,14 +96,20 @@ const getAllDestinations = async (req, res) => {
     }
 
     // Handle sorting
-    if (sort) {
-      const order = [];
-      if (sort.startsWith("-")) {
-        order.push([sort.substring(1), "DESC"]);
-      } else {
-        order.push([sort, "ASC"]);
-      }
-      queryOptions.order = order;
+    // if (sort) {
+    //   const order = [];
+    //   if (sort.startsWith("-")) {
+    //     order.push([sort.substring(1), "DESC"]);
+    //   } else {
+    //     order.push([sort, "ASC"]);
+    //   }
+    //   queryOptions.order = order;
+    // }
+
+    if (sort && sort.trim().length > 0) {
+      const isDescending = sort.startsWith("-");
+      const field = isDescending ? sort.substring(1) : sort;
+      queryOptions.order = [[field, isDescending ? "DESC" : "ASC"]];
     }
 
     // Handle search (where conditions)
