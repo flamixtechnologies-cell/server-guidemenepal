@@ -12,6 +12,7 @@ import {
   createCustomizeBooking,
   createGuideReport,
   createGuideReview,
+  deleteDestination,
   getAllBookings,
   getAllDestinations,
   getAllDistricts,
@@ -63,6 +64,7 @@ router.get("/get-popular-districts", getPopularDistricts);
 //destinations
 router.post("/add-single-destination", fileUpload, addSingleDestination);
 router.get("/get-all-destinations", getAllDestinations);
+router.delete("/delete-destination/:id", deleteDestination);
 
 //users
 router.get("/get-all-users/:userId", getAllUsers);
