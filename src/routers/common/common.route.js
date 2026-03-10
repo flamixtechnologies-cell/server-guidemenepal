@@ -5,6 +5,7 @@ const router = express.Router();
 import {
   acceptCustomizeBookingGuide,
   addBulkDistrict,
+  addSingleDestination,
   addSingleDistrict,
   cancelCustomizeBookingUser,
   completeBookingGuide,
@@ -12,6 +13,7 @@ import {
   createGuideReport,
   createGuideReview,
   getAllBookings,
+  getAllDestinations,
   getAllDistricts,
   getAllGuidesReports,
   getAllNotification,
@@ -29,7 +31,6 @@ import {
   getGuideReviews,
   getLatestGuideReviews,
 } from "../../controllers/common/sub-controller/guideReviews.controller.js";
-import { addSingleDestination } from "../../controllers/common/sub-controller/destination.controller.js";
 
 //secure routes
 router.post("/create-customize-booking", createCustomizeBooking);
@@ -58,6 +59,7 @@ router.get("/get-popular-districts", getPopularDistricts);
 
 //destinations
 router.post("/add-single-destination", addSingleDestination);
+router.get("/get-all-destinations", getAllDestinations);
 
 //users
 router.get("/get-all-users/:userId", getAllUsers);

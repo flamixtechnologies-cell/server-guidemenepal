@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../db/ConnectDB";
+import { sequelize } from "../db/ConnectDB.js";
 
 const Destination = sequelize.define("Destination", {
   id: {
@@ -11,7 +11,7 @@ const Destination = sequelize.define("Destination", {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "District",
+      model: "Districts",
       key: "id",
     },
   },

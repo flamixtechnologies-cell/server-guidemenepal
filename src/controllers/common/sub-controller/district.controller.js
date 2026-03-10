@@ -1,4 +1,3 @@
-import District from "../../../models/district.model.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 import { ApiError } from "../../../utils/ApiError.js";
 import { StatusCodes } from "http-status-codes";
@@ -6,6 +5,7 @@ import { ApiResponse } from "../../../utils/ApiResponse.js";
 import slug from "slug";
 import { Op, Sequelize } from "sequelize";
 import { uploadOnCloudinary } from "../../../utils/cloudinary.js";
+import District from "../../../models/district.model.js";
 
 const addSingleDistrict = asyncHandler(async (req, res) => {
   const {
