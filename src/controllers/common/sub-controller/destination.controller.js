@@ -148,6 +148,69 @@ const getAllDestinations = async (req, res) => {
   }
 };
 
+const getSingleDestination = async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    const destination = await Destination.findOne({ where: { slug } });
+    if (!destination) {
+      throw new ApiError(StatusCodes.NOT_FOUND, "Destination not found");
+    }
+
+    destination.views = destination.views + 1;
+    await destination.save();
+
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Showing Destination",
+      data: destination,
+    });
+  } catch (error) {
+    console.error("Error retrieving destination:", error);
+    res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: error.message || "Internal Server Error",
+    });
+  }
+};
+
+const editDestination = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      name,
+      tags,
+      title,
+      description,
+      meta_title,
+      meta_description,
+      district,
+    } = req.body;
+
+    const destination = await Destination.findByPk(id);
+    if (!destination) {
+      throw new ApiError(StatusCodes.NOT_FOUND, "Destination not found");
+    }
+
+    const updatedDestination = await destination.update({
+      name: name ? name : destination.name,
+      tags: tags ? tags : destination.tags,
+      title: title ? title : destination.title,
+      description: description ? description : destination.description,
+      meta_title: meta_title ? meta_title : destination.meta_title,
+      meta_description: meta_description
+        ? meta_description
+        : destination.meta_description,
+      district: district ? district : destination.district,
+    });
+
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Destination updated successfully",
+      data: updatedDestination,
+    });
+  } catch (error) {}
+};
+
 const deleteDestination = async (req, res) => {
   try {
     const { id } = req.params;
@@ -170,4 +233,10 @@ const deleteDestination = async (req, res) => {
   }
 };
 
-export { addSingleDestination, getAllDestinations, deleteDestination };
+export {
+  addSingleDestination,
+  getAllDestinations,
+  deleteDestination,
+  editDestination,
+  getSingleDestination,
+};
