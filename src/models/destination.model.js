@@ -48,6 +48,10 @@ const Destination = sequelize.define("Destination", {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  views: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
   isActive: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,

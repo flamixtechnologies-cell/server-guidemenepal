@@ -13,6 +13,7 @@ import {
   createGuideReport,
   createGuideReview,
   deleteDestination,
+  editDestination,
   getAllBookings,
   getAllDestinations,
   getAllDistricts,
@@ -23,6 +24,7 @@ import {
   getGuideReports,
   getOngoingBookings,
   getPopularDistricts,
+  getSingleDestination,
   getSingleDistrict,
   markAllNotificationAsRead,
   markNotificationAsRead,
@@ -65,6 +67,8 @@ router.get("/get-popular-districts", getPopularDistricts);
 router.post("/add-single-destination", fileUpload, addSingleDestination);
 router.get("/get-all-destinations", getAllDestinations);
 router.delete("/delete-destination/:id", deleteDestination);
+router.patch("/edit-destination/:id", fileUpload, editDestination);
+router.get("/get-single-destination/:slug", getSingleDestination);
 
 //users
 router.get("/get-all-users/:userId", getAllUsers);

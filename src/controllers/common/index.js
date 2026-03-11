@@ -25,6 +25,8 @@ import {
   addSingleDestination,
   getAllDestinations,
   deleteDestination,
+  editDestination,
+  getSingleDestination,
 } from "./sub-controller/destination.controller.js";
 
 //booking complete
@@ -70,6 +72,8 @@ export {
   addSingleDestination,
   getAllDestinations,
   deleteDestination,
+  editDestination,
+  getSingleDestination,
 
   // users
   getAllUsers,
