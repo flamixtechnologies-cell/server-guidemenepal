@@ -211,6 +211,26 @@ const editDestination = async (req, res) => {
   } catch (error) {}
 };
 
+// const getPopularDestination = async(req,res) =>{
+//   try {
+//     const popularDestinations = await Destination.findAll({
+//       where: { views: true },
+//       order: [["views", "DESC"]],
+//       limit: 5,
+//     });
+
+//     res.status(StatusCodes.OK).json({
+//       success: true,
+//       message: "Showing Popular Destinations",
+//       data: popularDestinations,
+//     });
+//   } catch (error) {
+//     console.error("Error retrieving popular destinations:", error);
+//     res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
+//       message: error.message || "Internal Server Error",
+//     });
+//   }
+// }
 const deleteDestination = async (req, res) => {
   try {
     const { id } = req.params;

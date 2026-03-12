@@ -20,6 +20,7 @@ app.use(
       "https://admin-guidemenepal.vercel.app",
       "http://localhost:3000",
       "http://localhost:3001",
+      "https://admin-guidemenepal-xi.vercel.app",
     ],
     credentials: true,
   })
