@@ -8,6 +8,7 @@ import {
   addSingleDestination,
   addSingleDistrict,
   cancelCustomizeBookingUser,
+  changeActiveStatus,
   completeBookingGuide,
   createCustomizeBooking,
   createGuideReport,
@@ -69,6 +70,7 @@ router.get("/get-all-destinations", getAllDestinations);
 router.delete("/delete-destination/:id", deleteDestination);
 router.patch("/edit-destination/:id", fileUpload, editDestination);
 router.get("/get-single-destination/:slug", getSingleDestination);
+router.patch("/status/:id", changeActiveStatus);
 
 //users
 router.get("/get-all-users/:userId", getAllUsers);

@@ -27,6 +27,7 @@ import {
   deleteDestination,
   editDestination,
   getSingleDestination,
+  changeActiveStatus,
 } from "./sub-controller/destination.controller.js";
 
 //booking complete
@@ -74,6 +75,7 @@ export {
   deleteDestination,
   editDestination,
   getSingleDestination,
+  changeActiveStatus,
 
   // users
   getAllUsers,

@@ -231,6 +231,31 @@ const editDestination = async (req, res) => {
 //     });
 //   }
 // }
+
+const changeActiveStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const destination = await Destination.findByPk(id);
+    if (!destination) {
+      throw new ApiError(StatusCodes.NOT_FOUND, "Destination not found");
+    }
+
+    destination.isActive = !destination.isActive;
+    await destination.save();
+
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Destination status updated successfully",
+      data: destination,
+    });
+  } catch (error) {
+    console.error("Error changing destination status:", error);
+    res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: error.message || "Internal Server Error",
+    });
+  }
+};
 const deleteDestination = async (req, res) => {
   try {
     const { id } = req.params;
@@ -259,4 +284,5 @@ export {
   deleteDestination,
   editDestination,
   getSingleDestination,
+  changeActiveStatus,
 };
