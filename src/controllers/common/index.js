@@ -28,6 +28,7 @@ import {
   editDestination,
   getSingleDestination,
   changeActiveStatus,
+  setPopular,
 } from "./sub-controller/destination.controller.js";
 
 //booking complete
@@ -76,6 +77,7 @@ export {
   editDestination,
   getSingleDestination,
   changeActiveStatus,
+  setPopular,
 
   // users
   getAllUsers,

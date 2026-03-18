@@ -52,6 +52,10 @@ const Destination = sequelize.define("Destination", {
     type: DataTypes.INTEGER,
     defaultValue: 0,
   },
+  isPopular: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
   isActive: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,

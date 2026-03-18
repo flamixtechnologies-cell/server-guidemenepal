@@ -30,6 +30,7 @@ import {
   markAllNotificationAsRead,
   markNotificationAsRead,
   rejectCustomizeBookingGuide,
+  setPopular,
 } from "../../controllers/common/index.js";
 import {
   getGuideReviews,
@@ -71,6 +72,7 @@ router.delete("/delete-destination/:id", deleteDestination);
 router.patch("/edit-destination/:id", fileUpload, editDestination);
 router.get("/get-single-destination/:slug", getSingleDestination);
 router.patch("/status/:id", changeActiveStatus);
+router.patch("/set-popular/:id", setPopular);
 
 //users
 router.get("/get-all-users/:userId", getAllUsers);

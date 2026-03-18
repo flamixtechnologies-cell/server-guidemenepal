@@ -232,6 +232,30 @@ const editDestination = async (req, res) => {
 //   }
 // }
 
+const setPopular = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const destination = await Destination.findByPk(id);
+    if (!destination) {
+      throw new ApiError(StatusCodes.NOT_FOUND, "Destination not found");
+    }
+
+    destination.isPopular = !destination.isPopular;
+    await destination.save();
+
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Destination popularity status updated successfully",
+      data: destination,
+    });
+  } catch (error) {
+    console.error("Error changing destination popularity status:", error);
+    res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: error.message || "Internal Server Error",
+    });
+  }
+};
+
 const changeActiveStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -256,6 +280,7 @@ const changeActiveStatus = async (req, res) => {
     });
   }
 };
+
 const deleteDestination = async (req, res) => {
   try {
     const { id } = req.params;
@@ -285,4 +310,5 @@ export {
   editDestination,
   getSingleDestination,
   changeActiveStatus,
+  setPopular,
 };
