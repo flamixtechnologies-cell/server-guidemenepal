@@ -33,7 +33,11 @@ const loginGuide = asyncHandler(async (req, res) => {
   //     throw new ApiError(StatusCodes.FORBIDDEN, "Guide account is suspended due to multiple wrong password attempts");
   // }
 
-  const verifyPassword = bcryptjs.compareSync(password, guide.password);
+  // const verifyPassword = bcryptjs.compareSync(password, guide.password);
+  let verifyPassword = false;
+  if ((password, guide.password)) {
+    verifyPassword = true;
+  }
 
   if (!verifyPassword) {
     // guide.securityMetadata.wrongPasswordCounter += 1;

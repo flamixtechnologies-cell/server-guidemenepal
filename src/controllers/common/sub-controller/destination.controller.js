@@ -4,7 +4,7 @@ import { uploadOnCloudinary } from "../../../utils/cloudinary.js";
 import Destination from "../../../models/destination.model.js";
 import slug from "slug";
 import { ApiResponse } from "../../../utils/ApiResponse.js";
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 
 const addSingleDestination = async (req, res) => {
   try {
@@ -211,26 +211,45 @@ const editDestination = async (req, res) => {
   } catch (error) {}
 };
 
-// const getPopularDestination = async(req,res) =>{
-//   try {
-//     const popularDestinations = await Destination.findAll({
-//       where: { views: true },
-//       order: [["views", "DESC"]],
-//       limit: 5,
-//     });
+const getPopularDestination = async (req, res) => {
+  try {
+    // Step 1: Get popular destinations
+    const popularDestinations = await Destination.findAll({
+      where: { isPopular: true },
+      limit: 5,
+    });
 
-//     res.status(StatusCodes.OK).json({
-//       success: true,
-//       message: "Showing Popular Destinations",
-//       data: popularDestinations,
-//     });
-//   } catch (error) {
-//     console.error("Error retrieving popular destinations:", error);
-//     res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
-//       message: error.message || "Internal Server Error",
-//     });
-//   }
-// }
+    let result = [...popularDestinations];
+
+    // Step 2: If less than 5, fetch top viewed (excluding already fetched)
+    if (result.length < 5) {
+      const excludeIds = result.map((d) => d.id);
+
+      const additionalDestinations = await Destination.findAll({
+        where: {
+          id: {
+            [Op.notIn]: excludeIds,
+          },
+        },
+        order: [["views", "DESC"]],
+        limit: 5 - result.length,
+      });
+
+      result = [...result, ...additionalDestinations];
+    }
+
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Showing Popular Destinations",
+      data: result,
+    });
+  } catch (error) {
+    console.error("Error retrieving popular destinations:", error);
+    res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: error.message || "Internal Server Error",
+    });
+  }
+};
 
 const setPopular = async (req, res) => {
   try {
@@ -311,4 +330,5 @@ export {
   getSingleDestination,
   changeActiveStatus,
   setPopular,
+  getPopularDestination,
 };
